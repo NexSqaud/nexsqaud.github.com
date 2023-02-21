@@ -1,0 +1,18 @@
+--2023-02-21 13:39:45--  https://github.com/copy/v86/raw/master/bios/seabios.bin
+Resolving github.com... 140.82.121.4
+Connecting to github.com|140.82.121.4|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://raw.githubusercontent.com/copy/v86/master/bios/seabios.bin [following]
+--2023-02-21 13:39:46--  https://raw.githubusercontent.com/copy/v86/master/bios/seabios.bin
+Resolving raw.githubusercontent.com... 185.199.111.133, 185.199.108.133, 185.199.109.133, ...
+Connecting to raw.githubusercontent.com|185.199.111.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 131072 (128K) [application/octet-stream]
+Saving to: ‘seabios.bin.1’
+
+     0K .......... .......... .......... .......... .......... 39%  231K 0s
+    50K .......... .......... .......... .......... .......... 78%  150K 0s
+   100K .......... .......... ........                        100% 29.6M=0.6s
+
+2023-02-21 13:39:47 (232 KB/s) - ‘seabios.bin.1’ saved [131072/131072]
+

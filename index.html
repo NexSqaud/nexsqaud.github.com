@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<script>
+			import v86 from "v86/libv86.js";
+			
+			window.onload = function ()
+			{
+				window.emulator = new V86Starter({
+					wasm_path: "v86/v86.wasm",
+					memory_size: 1 * 1024 * 1024,
+					vga_memory_size: 2 * 1024 * 1024,
+					screen_container: document.getElementById("screen_container"), 
+					bios: { 
+						url: "v86/seabios.bin", 
+					}, 
+					vga_bios: { 
+						url: "v86/vgabios.bin", 
+					},
+					cdrom: { 
+						url: "https://github.com/NexSqaud/Snake-OS/releases/download/v0.0.1/debug.img", 
+					},
+					autostart: true
+				})
+			};
+		</script>
+	</head>
+	<body>
+		<div id="screen_container">
+      		<div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
+      		<canvas style="display: none"></canvas>
+    </div>
+	</body>
+</html>

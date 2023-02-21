@@ -1,0 +1,16 @@
+--2023-02-21 13:38:49--  https://github.com/copy/v86/raw/master/bios/vgabios.bin
+Resolving github.com... 140.82.121.4
+Connecting to github.com|140.82.121.4|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://raw.githubusercontent.com/copy/v86/master/bios/vgabios.bin [following]
+--2023-02-21 13:38:50--  https://raw.githubusercontent.com/copy/v86/master/bios/vgabios.bin
+Resolving raw.githubusercontent.com... 185.199.111.133, 185.199.108.133, 185.199.109.133, ...
+Connecting to raw.githubusercontent.com|185.199.111.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 35840 (35K) [application/octet-stream]
+Saving to: ‘vgabios.bin.1’
+
+     0K .......... .......... .......... .....                100%  302K=0.1s
+
+2023-02-21 13:38:51 (302 KB/s) - ‘vgabios.bin.1’ saved [35840/35840]
+
