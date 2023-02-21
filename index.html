@@ -1,5 +1,24 @@
+<!DOCTYPE HTML>
 <html>
 	<head>
+		<style>
+			body
+			{
+				background-color: #000;
+			}
+		
+			div.center
+			{
+				display: flex;
+				justify-content: center;
+			}
+			
+			.mobile-button
+			{
+				width: 50px;
+				height: 50px;
+			}
+		</style>
 		<script src="v86/libv86.js"></script>
 		<script>
 			
@@ -16,7 +35,7 @@
 					vga_bios: { 
 						url: "v86/vgabios.bin", 
 					},
-					cdrom: { 
+					fda: { 
 						url: "v86/image.img", 
 					},
 					autostart: true
@@ -25,9 +44,25 @@
 		</script>
 	</head>
 	<body>
-		<div id="screen_container">
-      		<div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
-      		<canvas style="display: none"></canvas>
-    </div>
+		<div class="center">
+			<div class="center" style="flex-direction: column;"> 
+				<div id="screen_container">
+					<div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
+					<canvas style="display: none"></canvas>
+				</div>
+				<div class="center">
+					<div class="center" id="mobile-keyboard" style="flex-direction: column; width: fit-content;">
+						<div class="center">
+							<button class="mobile-button" onpointerup="window.emulator.keyboard_adapter.simulate_char('w')">W</button>
+						</div>
+						<div>
+							<button class="mobile-button" onpointerup="window.emulator.keyboard_adapter.simulate_char('a')">A</button>
+							<button class="mobile-button" onpointerup="window.emulator.keyboard_adapter.simulate_char('s')">S</button>
+							<button class="mobile-button" onpointerup="window.emulator.keyboard_adapter.simulate_char('d')">D</button>
+						</div>
+					</div>
+				<div>
+			</div>
+		</div>
 	</body>
 </html>
