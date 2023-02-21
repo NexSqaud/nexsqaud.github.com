@@ -1,0 +1,42 @@
+name: Deploy static content to Pages
+
+on:
+  push:
+    branches: ["master"]
+  schedule:
+        - cron: '0 12 * * *'
+
+  workflow_dispatch:
+
+permissions:
+  contents: read, write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Fetch release
+      - uses: dsaltares/fetch-gh-release-asset@master
+        with:
+            repo: 'NexSqaud/Snake-OS'
+            file: 'debug.img'
+            target: 'v86/image.img'
+            token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: '.'
+      - name: Deploy to GitHub Pages
