@@ -34,7 +34,7 @@ jobs:
         with:
             repo: 'NexSqaud/Snake-OS'
             regex: true
-            file: 'debug_.*\\.img'
+            file: "debug_.*\\.img"
             target: 'v86/'
             token: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload artifact
