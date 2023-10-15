@@ -2,163 +2,75 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<style>
-			*
-			{
-				--main-color: #BFBFBF;
-			}
-		
-			body
-			{
-				background-color: #222;
-				color: var(--main-color);
-				font-family: 'Roboto'; 
-			}
-			
-			:link
-			{
-				color: var(--main-color);
-			}
-			
-			:visited
-			{
-				color: var(--main-color);
-			}
-			
-			div.center
-			{
-				display: flex;
-				justify-content: center;
-			}
-			
-			.mobile-button
-			{
-				margin: 2px;
-			
-				width: 50px;
-				height: 50px;
-			}
-			
-			div#screen_container
-			{
-				margin: 0.5em;
-			
-				border: #555 solid;
-				border-radius: 5px;
-				
-				box-shadow: 0 0 1em #000;
-			}
-			
-			div.version_container
-			{
-				background-color: #151515;
-				
-				box-sizing: border-box;
-				
-				margin: 1em;
-				padding: 1em;
-				max-width: 400px;
-				
-				outline: 2px #555 solid;
-				outline-offset: -2px;
-				border-radius: 10px;
-				
-				box-shadow: 0 0 1em #000;
-				
-				transition: 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
-			}
-			
-			div.version_container:hover {
-				transform: scale(1.1);
-				background: #222;
-			}
-			
-			div.version_container:active {
-				transform: scale(0.9);
-			}
-			
-			b.version_name
-			{
-				color: #FFF;
-			}
-			
-			p.version_description
-			{
-				
-			}
-		</style>
+		<link rel="stylesheet" href="style.css">
 		<script src="v86/libv86.js"></script>
 		<script>
-			
+			function goToEmulator(imagePath, is_hda = false)
+			{
+				document.getElementById("version_choice_container").style.display = "none";
+				document.getElementById("emulator_container").style.display = "flex";
+
+				let load_device = {};
+
+				if(is_hda)
+				{
+					load_device = {
+						hda: {
+							url: imagePath
+						}
+					};
+				}
+				else
+				{
+					load_device = {
+						fda: {
+							url: imagePath
+						}
+					};
+				}
+
+				window.emulator = new V86Starter({
+					wasm_path: "v86/v86.wasm",
+					memory_size: 32 * 1024 * 1024,
+					vga_memory_size: 4 * 1024 * 1024,
+					screen_container: document.getElementById("screen_container"), 
+					bios: { 
+						url: "v86/seabios.bin", 
+					}, 
+					vga_bios: { 
+						url: "v86/vgabios.bin", 
+					},
+					...load_device,
+					autostart: true
+				});
+			}
+
 			window.onload = function ()
 			{
 				let emulatorContaier = document.getElementById("emulator_container");
 				emulatorContaier.style.display = "none";
-			
-				window.emulator_16 = new V86Starter({
-					wasm_path: "v86/v86.wasm",
-					memory_size: 1 * 1024 * 1024,
-					vga_memory_size: 2 * 1024 * 1024,
-					screen_container: document.getElementById("screen_container"), 
-					bios: { 
-						url: "v86/seabios.bin", 
-					}, 
-					vga_bios: { 
-						url: "v86/vgabios.bin", 
-					},
-					fda: { 
-						url: "v86/debug_16.img", 
-					},
-					autostart: false
-				})
-				
-				window.emulator_32_mbr = new V86Starter({
-					wasm_path: "v86/v86.wasm",
-					memory_size: 32 * 1024 * 1024,
-					vga_memory_size: 2 * 1024 * 1024,
-					screen_container: document.getElementById("screen_container"), 
-					bios: { 
-						url: "v86/seabios.bin", 
-					}, 
-					vga_bios: { 
-						url: "v86/vgabios.bin", 
-					},
-					fda: { 
-						url: "v86/debug_32_mbr.img", 
-					},
-					autostart: false
-				})
-				
-				document.getElementById("version_16").onclick = function()
-				{
-					document.getElementById("version_choice_container").style.display = "none";
-					emulatorContaier.style.display = "flex";
-					window.emulator = window.emulator_16;
-					window.emulator_16.run();
-				}
-				
-				document.getElementById("version_32_mbr").onclick = function()
-				{
-					document.getElementById("version_choice_container").style.display = "none";
-					emulatorContaier.style.display = "flex";
-					window.emulator = window.emulator_32_mbr;
-					window.emulator_32_mbr.run();
-				}
 			};
 		</script>
 	</head>
 	<body>
 		<div class="center">
 			<div id="version_choice_container" class="center" style="flex-direction: column;">
-				<div id="version_16" class="version_container">
+				<div class="version_header">Snake OS</div>
+				<div id="snakeos_16" class="version_container" onclick="goToEmulator('images/snakeos/debug_16.img')">
 					<b class="version_name">16-bit</b>
 					<p class="version_description">Версия SnakeOS работающая в режиме реальных адресов</p>
 					<a href="https://github.com/NexSqaud/Snake-OS/tree/16">Github</a>
 				</div>
-				<div id="version_32_mbr" class="version_container">
+				<div id="snakeos_32_mbr" class="version_container" onclick="goToEmulator('images/snakeos/debug_32_mbr.img')">
 					<b class="version_name">32-bit (MBR)</b>
 					<p class="version_description">Версия SnakeOS работающая в защищенном режиме с legacy загрузчиком</p>
 					<a href="https://github.com/NexSqaud/Snake-OS/tree/32">Github</a>
+				</div>
+				<div class="version_header">Kumir OS</div>
+				<div id="kumiros_rt" class="version_container" onclick="goToEmulator('images/kumiros/rt.img', true)">
+					<b class="version_name">Ray tracing demo</b>
+					<p class="version_description">Версия KumirOS с простой демкой трассировки лучей</p>
+					<a href="https://github.com/NexSqaud/KumirOS">Github</a>
 				</div>
 			</div>
 			<div id="emulator_container" class="center" style="flex-direction: column;"> 
