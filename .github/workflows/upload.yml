@@ -45,7 +45,7 @@ jobs:
         with:
             repo: 'NexSqaud/KumirOS'
             regex: true
-            file: "*\\.img"
+            file: ".*\\.img"
             target: 'images/kumiros/'
             token: ${{ secrets.GITHUB_TOKEN }}
     
